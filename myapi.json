@@ -1,0 +1,43 @@
+{
+    "id": "myapi",
+    "name": "My API",
+    "version": "1.0",
+    "context_path": "/myapi",
+    "proxy": {
+      "virtual_hosts": [
+        {
+          "path": "/myapi"
+        }
+      ],
+      "groups": [
+        {
+          "name": "default-group",
+          "endpoints": [
+            {
+              "name": "default",
+              "target": "https://api.gravitee.io/echo",
+              "weight": 1,
+              "backup": false,
+              "type": "HTTP"
+            }
+          ]
+        }
+      ]
+    },
+    "paths": {
+      "/resource": [
+        {
+          "methods": ["GET"],
+          "policies": [
+            {
+              "name": "rate-limit",
+              "configuration": {
+                "rate": "100/s"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+  
